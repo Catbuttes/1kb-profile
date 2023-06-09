@@ -1,0 +1,19 @@
+[Unit]
+Description=1kb Calckey Profile Service
+After=network.target
+
+[Service]
+Type=simple
+User=one-kb
+ExecStart=$(command -v npm) start
+WorkingDirectory=/home/one-kb/one-kb
+Environment="NODE_ENV=production"
+TimeoutSec=60
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier="$host"
+Restart=always
+LimitCPU=0.2
+
+[Install]
+WantedBy=multi-user.target

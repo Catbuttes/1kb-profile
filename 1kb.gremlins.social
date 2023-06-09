@@ -1,0 +1,17 @@
+user       www www;  ## Default: nobody
+worker_processes  5;  ## Default: 1
+error_log  logs/error.log;
+pid        logs/nginx.pid;
+worker_rlimit_nofile 8192;
+
+
+server { # simple reverse-proxy
+    listen       80;
+    server_name  1kb.gremlins.social;
+    access_log   logs/1kb.gremlins.social.access.log  main;
+
+    # pass requests for dynamic content to rails/turbogears/zope, et al
+    location / {
+      proxy_pass      http://127.0.0.1:3001;
+    }
+  }
