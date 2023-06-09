@@ -31,6 +31,8 @@ app.get('/', async (req, res) => {
     }
 })
 
+
+
 app.get('/:user', async (req, res) => {
     try {
         console.log("%s %s %s %s", new Date(Date.now()).toISOString(), req.ip, req.hostname, req.url)
@@ -151,7 +153,7 @@ app.get('/:user/p', async (req, res) => {
 
 })
 
-app.enable("trust proxy")
+app.enable("trust proxy", ['loopback', 'linklocal', 'uniquelocal'])
 
 app.listen(port, () => {
     console.log(`1kb app listening on port ${port}`)
