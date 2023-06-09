@@ -13,6 +13,7 @@ app.get('/', async (req, res) => {
     try {
         console.log("%s %s %s %s", new Date(Date.now()).toISOString(), req.ip, req.hostname, req.url)
 
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
@@ -20,6 +21,7 @@ app.get('/', async (req, res) => {
         res.set("Connection", "close");
         res.end(index)
     } catch (error) {
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
@@ -81,6 +83,7 @@ app.get('/:user', async (req, res) => {
             content: content
         }
 
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
@@ -88,6 +91,7 @@ app.get('/:user', async (req, res) => {
         res.set("Connection", "close");
         res.end(mustache.render(template.toString(), data))
     } catch (error) {
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
@@ -117,6 +121,7 @@ app.get('/:user/f', async (req, res) => {
 
         res.redirect(rssData.items[0].link)
     } catch (error) {
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
@@ -143,6 +148,7 @@ app.get('/:user/p', async (req, res) => {
 
         res.redirect(url)
     } catch (error) {
+        res.type('html')
         res.removeHeader('Date');
         res.removeHeader('Etag');
         res.removeHeader('Keep-Alive');
