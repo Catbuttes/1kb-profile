@@ -4,7 +4,7 @@ require('rss-parser')
 const fs = require('fs')
 const Parser = require('rss-parser')
 const app = express()
-const port = 3001
+const port = 5000
 
 const template = fs.readFileSync('template.mustache')
 
