@@ -7,6 +7,29 @@ const app = express()
 const port = 5000
 
 const template = fs.readFileSync('template.mustache')
+const index = fs.readFileSync('index.html')
+
+app.get('/', async (req, res) => {
+    try {
+        console.log("%s %s %s %s", new Date(Date.now()).toISOString(), req.ip, req.hostname, req.url)
+
+        res.removeHeader('Date');
+        res.removeHeader('Etag');
+        res.removeHeader('Keep-Alive');
+        res.removeHeader('X-Powered-By');
+        res.set("Connection", "close");
+        res.end(index)
+    } catch (error) {
+        res.removeHeader('Date');
+        res.removeHeader('Etag');
+        res.removeHeader('Keep-Alive');
+        res.removeHeader('X-Powered-By');
+        res.set("Connection", "close");
+        res.end("Oops. Something went wrong. Are you sure you provided a user on a calckey server?")
+
+        console.error(error)
+    }
+})
 
 app.get('/:user', async (req, res) => {
     try {
@@ -35,7 +58,7 @@ app.get('/:user', async (req, res) => {
         let content = rssData.items[0].encoded
 
         const remainingBudget = 1024
-            - 125 //Headers approx
+            - 115 //Headers approx
             - 465 //Template
             - (req.params.user.length * 3)  //username
             - splitDesc[0].length   //Notes
@@ -127,6 +150,8 @@ app.get('/:user/p', async (req, res) => {
     }
 
 })
+
+app.enable("trust proxy")
 
 app.listen(port, () => {
     console.log(`1kb app listening on port ${port}`)
