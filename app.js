@@ -35,7 +35,7 @@ app.get('/:user', async (req, res) => {
         let content = rssData.items[0].encoded
 
         const remainingBudget = 1024
-            - 59 //Headers approx
+            - 125 //Headers approx
             - 465 //Template
             - (req.params.user.length * 3)  //username
             - splitDesc[0].length   //Notes
