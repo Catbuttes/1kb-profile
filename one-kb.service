@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=one-kb
-ExecStart=$(command -v npm) start
+ExecStart=/usr/bin/npm start
 WorkingDirectory=/home/one-kb/one-kb
 Environment="NODE_ENV=production"
 TimeoutSec=60
